@@ -5,3 +5,4 @@ pandas
 python-dotenv
 requests
 openpyxl
+python-multipart
