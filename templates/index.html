@@ -1,1 +1,26 @@
-<h1>Go Tactical</h1>
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>Go Tactical Inventory Uploader</title>
+  <style>
+    body { font-family: Arial; direction: rtl; margin: 40px; background: #f7f7f7; }
+    h1 { color: #333; }
+    form { background: white; padding: 20px; border-radius: 10px; width: 400px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input[type=file], button { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>עדכון מלאי ומחירים - Go Tactical</h1>
+  <form action="/preview" method="post" enctype="multipart/form-data">
+    <label>בחר קובץ CSV או Excel:</label><br>
+    <input type="file" name="file" accept=".csv,.xlsx,.xls" required><br><br>
+
+    <label><input type="checkbox" name="do_stock" checked> עדכן מלאי</label><br>
+    <label><input type="checkbox" name="do_prices"> עדכן מחירים</label><br>
+    <label><input type="checkbox" name="dry_run" checked> מצב סימולציה (Dry Run)</label><br><br>
+
+    <button type="submit">הצג תצוגה מקדימה</button>
+  </form>
+</body>
+</html>
