@@ -1,1 +1,55 @@
-<h2>Preview</h2>
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>תצוגה מקדימה</title>
+  <style>
+    body { font-family: Arial; direction: rtl; margin: 40px; background: #f7f7f7; }
+    table { border-collapse: collapse; width: 100%; background: white; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+    th { background: #eee; }
+    .errors { background: #ffe0e0; padding: 10px; margin-bottom: 15px; border: 1px solid #f00; }
+    button { margin-top: 15px; }
+  </style>
+</head>
+<body>
+  <h1>תצוגה מקדימה לעדכון</h1>
+
+  {% if errors %}
+  <div class="errors">
+    <b>נמצאו בעיות:</b>
+    <ul>
+      {% for err in errors %}
+      <li>{{ err }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <p>סה"כ שורות: {{ stats.total_rows }}</p>
+  <table>
+    <tr>
+      {% for k in rows[0].keys() %}
+      <th>{{ k }}</th>
+      {% endfor %}
+    </tr>
+    {% for r in rows %}
+    <tr>
+      {% for v in r.values() %}
+      <td>{{ v }}</td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
+
+  <form action="/apply" method="post">
+    <input type="hidden" name="raw" value='{{ raw | tojson | safe }}'>
+    <input type="hidden" name="do_stock" value="{{ do_stock }}">
+    <input type="hidden" name="do_prices" value="{{ do_prices }}">
+    <input type="hidden" name="dry_run" value="{{ dry_run }}">
+    <button type="submit">בצע עדכון</button>
+  </form>
+
+  <p><a href="/">← חזרה</a></p>
+</body>
+</html>
