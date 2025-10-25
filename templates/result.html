@@ -1,1 +1,41 @@
-<h2>Result</h2>
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>תוצאות העדכון</title>
+  <style>
+    body { font-family: Arial; direction: rtl; margin: 40px; background: #f7f7f7; }
+    .box { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); width: 600px; }
+    ul { margin-top: 5px; }
+    .success { color: green; }
+    .error { color: red; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>תוצאות העדכון</h1>
+    <p class="success">עודכנו בהצלחה: {{ summary.updated_total }} פריטים</p>
+
+    {% if summary.not_found_count > 0 %}
+    <p class="error">לא נמצאו {{ summary.not_found_count }} פריטים (SKU לא נמצא):</p>
+    <ul>
+      {% for sku in summary.not_found %}
+      <li>{{ sku }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if summary.errors_count > 0 %}
+    <p class="error">שגיאות נוספות: {{ summary.errors_count }}</p>
+    <ul>
+      {% for e in summary.errors %}
+      <li>{{ e }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <p><a href="/download-log?name={{ summary.log_name }}">📥 הורד קובץ לוג</a></p>
+    <p><a href="/">← חזרה</a></p>
+  </div>
+</body>
+</html>
